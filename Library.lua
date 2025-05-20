@@ -1237,7 +1237,7 @@ function SolarisLib:New(Config)
                        TextboxFrame.Box.TextColor3 = SolarisLib.Themes[SolarisLib.Settings.Theme].TextColor
                     end
                 end)
-                return Textbox
+                return TextboxFrame.Box
             end    
             function ItemHold:Bind(text,preset,holdmode,flag,callback,isBinary)
                 local Bind, BindFrame = {Value, Binding = false, Holding = false}, game:GetObjects("rbxassetid://7126874744")[1]
