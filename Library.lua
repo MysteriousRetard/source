@@ -912,7 +912,7 @@ function SolarisLib:New(Config)
                 SolarisLib.Flags[flag] = Slider
                 return Slider
             end    
-			function ItemHold:Dropdown(text,list,def,flag,callback)
+			function ItemHold:Dropdown(text,list,def,flag,callback, dontTriggerAtFirst)
 					local Dropdown,DropMain,OptionPreset = {Value = nil, Toggled = false, Options = list}, game:GetObjects("rbxassetid://7027964359")[1], game:GetObjects("rbxassetid://7021432326")[1]
 					DropMain.Parent = Section
 					DropMain.Btn.Title.Text = text
@@ -977,9 +977,10 @@ function SolarisLib:New(Config)
 						ToggleDrop()
 					end)
 
-					function Dropdown:Set(val)
+					function Dropdown:Set(val, dontTriggerAtFirst)
 						Dropdown.Value = val
 						DropMain.Btn.Title.Text = text .. " - " .. val
+						if dontTriggerAtFirst then return; end
 						return callback(Dropdown.Value)
 					end
 
@@ -992,7 +993,7 @@ function SolarisLib:New(Config)
 					end)
 
 					Dropdown:Refresh(list,false)
-					Dropdown:Set(def)
+					Dropdown:Set(def, dontTriggerAtFirst)
 					SolarisLib.Flags[flag] = Dropdown
 				return Dropdown
 			end   
