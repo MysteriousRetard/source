@@ -830,11 +830,16 @@ function SolarisLib:New(Config)
                 ToggleMain.ToggleText.Text = text
                 ToggleMain.Name = text .. "element"
 
+		if getgenv().ConfigTable[flag] == nil then
+			getgenv().ConfigTable[flag] = def
+		end
+
                 function Toggle:Set(value, dontActivate)
 					Toggle.Value = value
                     TweenService:Create(ToggleMain.ToggleFrame.ToggleToggled.ToggleIco,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{ImageTransparency= Toggle.Value and 0 or 1}):Play()
                     TweenService:Create(ToggleMain.ToggleFrame.ToggleToggled.ToggleIco,TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size= Toggle.Value and UDim2.new(1,-2,1,-2) or UDim2.new(1,-6,1,-6)}):Play()
 					if dontActivate then return; end
+					getgenv().ConfigTable[flag] = Toggle.Value
 					return callback(Toggle.Value)
 				end
 				
@@ -863,6 +868,10 @@ function SolarisLib:New(Config)
                 SliderMain.Name = text .. "element"
                 local dragging = false
 
+		if getgenv().ConfigTable[flag] == nil then
+			getgenv().ConfigTable[flag] = start
+		end
+
                 local function move(Input)
                     local XSize = math.clamp((Input.Position.X - SliderMain.SliderFrame.AbsolutePosition.X) / SliderMain.SliderFrame.AbsoluteSize.X, 0, 1)
                     local Increment = inc and (max / ((max - min) / (inc * 4))) or (max >= 50 and max / ((max - min) / 4)) or (max >= 25 and max / ((max - min) / 2)) or (max / (max - min))
@@ -884,7 +893,7 @@ function SolarisLib:New(Config)
                     Slider.Value = val
 
 					if dontActivate then return; end
-					
+					getgenv().ConfigTable[flag] = Slider.Value
 					return callback(Slider.Value)
 				end	
 
