@@ -1254,7 +1254,9 @@ function SolarisLib:New(Config)
                 BindFrame.Title.Text = text
                 BindFrame.Name = text .. "element"
 
-                
+                if getgenv().ConfigTable[flag] == nil then
+			getgenv().ConfigTable[flag] = preset
+		end
 
                 BindFrame.InputEnded:Connect(function(Input)
                     if Input.UserInputType == Enum.UserInputType.MouseButton1 then
@@ -1309,6 +1311,7 @@ function SolarisLib:New(Config)
                     self.Value = key or self.Value
                     self.Value = self.Value.Name or self.Value
                     BindFrame.BText.Text = self.Value
+                    getgenv().ConfigTable[flag] = self.Value
 				end
 
                 spawn(function()
