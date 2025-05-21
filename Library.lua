@@ -879,6 +879,7 @@ function SolarisLib:New(Config)
                     TweenService:Create(SliderMain.SliderFrame.SliderCurrentFrame,TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = SizeRounded}):Play() 
                     local Val = math.round((((SizeRounded.X.Scale * max) / max) * (max - min) + min) * 20) / 20
                     SliderMain.SliderVal.Text = tostring(Val)
+		    getgenv().ConfigTable[flag] = Val
                     Slider.Value = Val
                     callback(Slider.Value)
 				end
